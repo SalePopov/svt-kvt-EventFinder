@@ -1,0 +1,61 @@
+<div class="event-list-container">
+  <h1 class="title">Svi Događaji</h1>
+  <h2 class="subtitle">Pronađite događaj za vas</h2>
+
+  <div class="box">
+    <form (ngSubmit)="onFilterChange()">
+      <div class="field is-grouped">
+        <div class="control is-expanded">
+          <input class="input" type="text" placeholder="Tip (npr. Koncert)" [(ngModel)]="filters.type" name="type">
+        </div>
+        <div class="control is-expanded">
+          <input class="input" type="text" placeholder="Naziv mesta" [(ngModel)]="filters.locationName" name="locationName">
+        </div>
+        <div class="control">
+          <input class="input" type="number" placeholder="Maks. cena" [(ngModel)]="filters.maxPrice" name="maxPrice" style="width: 150px;">
+        </div>
+      </div>
+      <div class="field is-grouped is-justify-content-space-between">
+        <div class="control">
+          <label class="checkbox">
+            <input type="checkbox" [(ngModel)]="filters.today" name="today" (change)="onFilterChange()">
+            Samo današnji
+          </label>
+        </div>
+        <div class="control">
+          <button type="submit" class="button is-link">Filtriraj</button>
+          <button type="button" (click)="resetFilters()" class="button is-light ml-2">Resetuj</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <hr>
+
+  <div *ngIf="isLoading"><p class="has-text-centered">Učitavanje...</p></div>
+  <div *ngIf="error" class="notification is-danger">{{ error }}</div>
+
+  <div *ngIf="!isLoading && !error">
+    <div *ngIf="events.length > 0; else noEvents" class="columns is-multiline">
+      <div *ngFor="let event of events" class="column is-one-third">
+        <div class="card">
+          <div class="card-content">
+            <p class="title is-4">{{ event.name }}</p>
+            <p class="subtitle is-6">{{ event.type }}</p>
+            <div class="content">
+              <strong>Datum:</strong> {{ event.date | date:'dd.MM.yyyy' }}
+              <br>
+              <strong>Cena:</strong>
+              <span class="tag is-success is-medium">
+                {{ event.price ? (event.price | currency:'RSD') : 'Besplatno' }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #noEvents>
+      <p class="has-text-centered">Nema događaja koji odgovaraju zadatim filterima.</p>
+    </ng-template>
+  </div>
+</div>

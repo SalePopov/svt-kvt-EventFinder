@@ -1,0 +1,51 @@
+
+<nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+  <div class="container">
+    <div class="navbar-brand">
+      <a routerLink="/" class="navbar-item">
+        <strong>Novi-Sad App</strong>
+      </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-start">
+        <a routerLink="/locations" class="navbar-item" routerLinkActive="is-active">
+          Mesta
+        </a>
+        <a routerLink="/events" class="navbar-item" routerLinkActive="is-active">
+          Događaji
+        </a>
+      </div>
+
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+
+            <ng-container *ngIf="!authService.isLoggedIn()">
+              <a routerLink="/register-request" class="button is-primary">
+                <strong>Registruj se</strong>
+              </a>
+              <a routerLink="/login" class="button is-light">
+                Prijavi se
+              </a>
+            </ng-container>
+
+            <ng-container *ngIf="authService.isLoggedIn()">
+              <a *ngIf="authService.isAdmin()" routerLink="/admin/requests" class="navbar-item" routerLinkActive="is-active">
+                Zahtevi
+              </a>
+
+              <a routerLink="/dashboard" class="button is-light">
+                Moj Profil
+              </a>
+              <a (click)="logout()" class="button is-danger is-light">
+                Odjavi se
+              </a>
+            </ng-container>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

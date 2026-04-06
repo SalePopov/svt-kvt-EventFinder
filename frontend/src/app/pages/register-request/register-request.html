@@ -1,0 +1,49 @@
+<div class="columns is-centered">
+  <div class="column is-half">
+    <h1 class="title has-text-centered">Zahtev za Registraciju</h1>
+
+    <div *ngIf="message && !isError" class="notification is-success">
+      {{ message }}
+    </div>
+
+    <div *ngIf="!message || isError" class="box">
+      <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
+
+        <div class="field">
+          <label for="email" class="label">Email:</label>
+          <div class="control">
+            <input class="input" type="email" id="email" name="email" [(ngModel)]="requestData.email" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="password" class="label">Lozinka:</label>
+          <div class="control">
+            <input class="input" type="password" id="password" name="password" [(ngModel)]="requestData.password" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="address" class="label">Adresa:</label>
+          <div class="control">
+            <input class="input" type="text" id="address" name="address" [(ngModel)]="requestData.address" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <button class="button is-primary is-fullwidth" type="submit" [disabled]="!registerForm.form.valid">
+              Pošalji Zahtev
+            </button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+    <p *ngIf="message && isError" class="has-text-danger has-text-centered">
+      {{ message }}
+    </p>
+
+  </div>
+</div>

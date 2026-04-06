@@ -1,0 +1,64 @@
+<h1 class="title">Mesta dešavanja</h1>
+<h2 class="subtitle">Pronađite savršeno mesto za izlazak</h2>
+
+<div class="mb-4">
+  <a *ngIf="auth.isAdmin()" routerLink="/locations/new" class="button is-primary">
+    <span class="icon is-small">
+      <i class="fas fa-plus"></i>
+    </span>
+    <span>Dodaj Novo Mesto</span>
+  </a>
+</div>
+
+<div class="field">
+  <div class="control has-icons-left">
+    <input
+      class="input is-medium"
+      type="text"
+      placeholder="Pretraži po nazivu, adresi ili tipu..."
+      [(ngModel)]="searchTerm"
+      (ngModelChange)="loadLocations()">
+    <span class="icon is-small is-left">
+      <i class="fas fa-search"></i>
+    </span>
+  </div>
+</div>
+
+<div *ngIf="isLoading" class="has-text-centered mt-5">
+  <p>Učitavanje...</p>
+</div>
+<div *ngIf="error" class="notification is-danger">{{ error }}</div>
+
+<div *ngIf="!isLoading && !error" class="columns is-multiline mt-4">
+
+  <div *ngFor="let location of locations" class="column is-one-quarter">
+
+    <div class="card">
+      <div class="card-content">
+        <p class="title is-4">
+          <a [routerLink]="['/locations', location.id]">{{ location.name }}</a>
+        </p>
+        <p class="subtitle is-6">{{ location.type }}</p>
+      </div>
+      <footer class="card-footer">
+        <p class="card-footer-item">
+          <span>
+            Ocena:
+            <strong>
+              {{ location.totalRating > 0 ? (location.totalRating | number:'1.1-1') : 'N/A' }}
+            </strong>
+          </span>
+        </p>
+        <ng-container *ngIf="auth.isAdmin()">
+          <a [routerLink]="['/locations', location.id, 'edit']" class="card-footer-item">Izmeni</a>
+          <a (click)="deleteLocation(location.id)" class="card-footer-item has-text-danger">Obriši</a>
+        </ng-container>
+      </footer>
+    </div>
+
+  </div>
+
+  <div *ngIf="locations.length === 0" class="column">
+    <p class="has-text-centered">Nema mesta koja odgovaraju pretrazi.</p>
+  </div>
+</div>

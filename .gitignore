@@ -1,0 +1,74 @@
+<<<<<<< HEAD
+# Zanemarivanje fajlova specifičnih za IDE i OS
+.idea/
+.vscode/
+*.iml
+*.iws
+.DS_Store
+Thumbs.db
+
+### Backend - Spring Boot / Maven ###
+
+# Generisani build folder
+/backend/target/
+
+# Log fajlovi
+/backend/logs/
+*.log
+
+# Maven wrapper folder
+/backend/.mvn/
+
+# Fajlovi koje generiše Eclipse (za svaki slučaj)
+.metadata
+.classpath
+.project
+.settings
+
+### Frontend - Angular / Node ###
+
+# Ogromni folder sa zavisnostima - NAJVAŽNIJE PRAVILO!
+/frontend/node_modules/
+
+# Generisani build folder
+/frontend/dist/
+
+# Privremeni folderi
+/frontend/tmp/
+
+# Angular cache
+/frontend/.angular/
+
+# Log fajlovi generisani od strane npm-a
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor-specifični fajlovi
+/frontend/.vscode/
+=======
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+replay_pid*
+>>>>>>> origin/main

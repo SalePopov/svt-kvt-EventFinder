@@ -1,0 +1,38 @@
+<div class="columns is-centered">
+  <div class="column is-two-thirds">
+    <div class="form-container">
+      <h1 class="title has-text-centered">{{ isEditMode ? 'Izmeni Mesto' : 'Dodaj Novo Mesto' }}</h1>
+      <div class="box">
+        <form #locationForm="ngForm" (ngSubmit)="onSubmit()">
+          <div class="field">
+            <label class="label">Naziv:</label>
+            <div class="control"><input class="input" type="text" name="name" [(ngModel)]="locationData.name" required></div>
+          </div>
+          <div class="field">
+            <label class="label">Tip:</label>
+            <div class="control"><input class="input" type="text" name="type" [(ngModel)]="locationData.type" required></div>
+          </div>
+          <div class="field">
+            <label class="label">Adresa:</label>
+            <div class="control"><input class="input" type="text" name="address" [(ngModel)]="locationData.address" required></div>
+          </div>
+          <div class="field">
+            <label class="label">Opis:</label>
+            <div class="control"><textarea class="textarea" name="description" [(ngModel)]="locationData.description" required></textarea></div>
+          </div>
+          <div class="field is-grouped form-actions">
+            <div class="control">
+              <button class="button is-primary" type="submit" [disabled]="!locationForm.form.valid">
+                {{ isEditMode ? 'Sačuvaj izmene' : 'Kreiraj Mesto' }}
+              </button>
+            </div>
+            <div class="control">
+              <a routerLink="/locations" class="button is-light">Odustani</a>
+            </div>
+          </div>
+        </form>
+      </div>
+      <p *ngIf="errorMessage" class="has-text-danger">{{ errorMessage }}</p>
+    </div>
+  </div>
+</div>

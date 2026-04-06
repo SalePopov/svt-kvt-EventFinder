@@ -1,0 +1,36 @@
+<div class="columns is-centered">
+  <div class="column is-two-thirds">
+    <div class="form-container">
+      <h1 class="title has-text-centered">{{ isEditMode ? 'Izmeni Događaj' : 'Dodaj Novi Događaj' }}</h1>
+      <div class="box">
+        <form #eventForm="ngForm" (ngSubmit)="onSubmit()">
+          <div class="field">
+            <label class="label">Naziv događaja:</label>
+            <div class="control"><input class="input" type="text" name="name" [(ngModel)]="eventData.name" required></div>
+          </div>
+          <div class="field">
+            <label class="label">Datum:</label>
+            <div class="control"><input class="input" type="date" name="date" [(ngModel)]="eventData.date" required></div>
+          </div>
+          <div class="field">
+            <label class="checkbox">
+              <input type="checkbox" name="recurrent" [(ngModel)]="eventData.recurrent">
+              Događaj je redovan
+            </label>
+          </div>
+          <div class="field is-grouped form-actions">
+            <div class="control">
+              <button class="button is-primary" type="submit" [disabled]="!eventForm.form.valid">
+                {{ isEditMode ? 'Sačuvaj izmene' : 'Kreiraj Događaj' }}
+              </button>
+            </div>
+            <div class="control">
+              <a [routerLink]="locationId ? ['/locations', locationId] : '/events'" class="button is-light">Odustani</a>
+            </div>
+          </div>
+        </form>
+      </div>
+      <p *ngIf="errorMessage" class="has-text-danger">{{ errorMessage }}</p>
+    </div>
+  </div>
+</div>

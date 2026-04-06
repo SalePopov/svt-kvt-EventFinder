@@ -1,0 +1,27 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  background-image: url('asserts/images/background.jpg');
+
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+
+  .box {
+    background-color: #009f86;
+  }
+
+  .form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+}

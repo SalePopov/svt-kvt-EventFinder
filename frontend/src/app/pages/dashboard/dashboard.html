@@ -1,0 +1,99 @@
+<div class="columns is-centered">
+  <div class="column is-two-thirds">
+
+    <div *ngIf="user; else loading">
+      <h1 class="title">Moj Profil</h1>
+      <p class="subtitle">Dobrodošli, {{ user.name || user.email }}!</p>
+
+      <div class="box">
+        <h2 class="title is-4">Izmena podataka</h2>
+        <form #profileForm="ngForm" (ngSubmit)="updateProfile()">
+
+          <div class="field">
+            <label class="label">Ime:</label>
+            <div class="control">
+              <input class="input" type="text" name="name" [(ngModel)]="user.name" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Broj telefona:</label>
+            <div class="control">
+              <input class="input" type="text" name="phoneNumber" [(ngModel)]="user.phoneNumber">
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Adresa:</label>
+            <div class="control">
+              <input class="input" type="text" name="address" [(ngModel)]="user.address">
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Grad:</label>
+            <div class="control">
+              <input class="input" type="text" name="city" [(ngModel)]="user.city">
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Datum rođenja:</label>
+            <div class="control">
+              <input class="input" type="date" name="birthday" [(ngModel)]="user.birthday">
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <button class="button is-link" type="submit" [disabled]="!profileForm.form.valid">Sačuvaj izmene</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="box">
+        <h2 class="title is-4">Promena lozinke</h2>
+        <form #passwordForm="ngForm" (ngSubmit)="changePassword()">
+
+          <div class="field">
+            <label class="label">Trenutna lozinka:</label>
+            <div class="control">
+              <input class="input" type="password" name="current" [(ngModel)]="passwords.currentPassword" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Nova lozinka:</label>
+            <div class="control">
+              <input class="input" type="password" name="new" [(ngModel)]="passwords.newPassword" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Potvrdi novu lozinku:</label>
+            <div class="control">
+              <input class="input" type="password" name="confirm" [(ngModel)]="passwords.confirmNewPassword" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <button class="button is-link" type="submit" [disabled]="!passwordForm.form.valid">Promeni lozinku</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div *ngIf="message" class="notification" [ngClass]="{'is-success': !isError, 'is-danger': isError}">
+        {{ message }}
+      </div>
+
+    </div>
+
+    <ng-template #loading>
+      <p class="has-text-centered">Učitavanje podataka o profilu...</p>
+    </ng-template>
+
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="columns is-centered">
+  <div class="column is-half">
+
+    <h1 class="title has-text-centered">Prijava</h1>
+
+    <div class="box">
+      <form #loginForm="ngForm" (ngSubmit)="login()">
+
+        <div class="field">
+          <label class="label">Email</label>
+          <div class="control">
+            <input class="input" type="email" name="email" [(ngModel)]="credentials.email" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Lozinka</label>
+          <div class="control">
+            <input class="input" type="password" name="password" [(ngModel)]="credentials.password" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <button class="button is-primary is-fullwidth" [disabled]="!loginForm.form.valid">
+              Prijavi se
+            </button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+    <p *ngIf="errorMessage" class="has-text-danger has-text-centered">{{ errorMessage }}</p>
+
+  </div>
+</div>

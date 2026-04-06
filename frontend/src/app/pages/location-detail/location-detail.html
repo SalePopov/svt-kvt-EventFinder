@@ -1,0 +1,141 @@
+<!-- Prikaz učitavanja i grešaka -->
+<div *ngIf="isLoading" class="has-text-centered"><p>Učitavanje...</p></div>
+<div *ngIf="error" class="notification is-danger">{{ error }}</div>
+
+<!-- Glavni sadržaj, prikazuje se samo ako je lokacija učitana -->
+<div *ngIf="location" class="location-detail-container">
+
+  <a routerLink="/locations" class="button is-light mb-4">&larr; Nazad na listu</a>
+
+  <div class="level">
+    <div class="level-left">
+      <div class="level-item">
+        <div>
+          <h1 class="title is-1">{{ location.name }}</h1>
+          <h2 class="subtitle is-4">{{ location.type }} - {{ location.address }}</h2>
+        </div>
+      </div>
+    </div>
+    <div class="level-right">
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Prosečna ocena</p>
+          <p class="title">{{ location.totalRating > 0 ? (location.totalRating | number:'1.1-1') : 'N/A' }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content box">
+    <h3>Opis</h3>
+    <p>{{ location.description }}</p>
+  </div>
+
+  <hr>
+
+  <div class="level">
+    <div class="level-left">
+      <h2 class="title is-3">Događaji na ovoj lokaciji</h2>
+    </div>
+    <div class="level-right">
+      <a *ngIf="auth.isAdmin()" [routerLink]="['/locations', location.id, 'events', 'new']" class="button is-primary">
+        Dodaj Događaj
+      </a>
+    </div>
+  </div>
+
+  <div *ngIf="events.length > 0; else noEvents">
+    <div *ngFor="let event of events" class="box event-item">
+      <div class="media">
+        <div class="media-content">
+          <p class="title is-5">{{ event.name }}</p>
+          <p class="subtitle is-6">Tip: {{ event.type }} | Datum: {{ event.date | date:'dd.MM.yyyy' }}</p>
+        </div>
+        <div class="media-right">
+          <span class="tag is-info is-medium">
+            {{ event.price ? (event.price | currency:'RSD':'symbol-narrow') : 'Besplatno' }}
+          </span>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <a *ngIf="auth.isLoggedIn()" class="card-footer-item" (click)="toggleReviewForm(event.id)">
+          {{ showReviewFormForEventId === event.id ? 'Zatvori' : 'Ostavi utisak' }}
+        </a>
+      </div>
+
+      <div *ngIf="showReviewFormForEventId === event.id" class="review-form mt-4">
+
+        <form #reviewForm="ngForm" (ngSubmit)="submitReview()">
+          <div class="columns is-multiline">
+
+            <div class="column is-half">
+              <div class="field">
+                <label class="label">Ukupan utisak (1-10) <span class="has-text-danger">*</span></label>
+                <div class="control">
+                  <input class="input" type="number" min="1" max="10"
+                         [(ngModel)]="reviewData.overallImpression" name="overallImpression" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="column is-half">
+              <div class="field">
+                <label class="label">Nastup (1-10)</label>
+                <div class="control">
+                  <input class="input" type="number" min="1" max="10"
+                         [(ngModel)]="reviewData.performance" name="performance">
+                </div>
+              </div>
+            </div>
+
+            <div class="column is-half">
+              <div class="field">
+                <label class="label">Zvuk i svetlo (1-10)</label>
+                <div class="control">
+                  <input class="input" type="number" min="1" max="10"
+                         [(ngModel)]="reviewData.soundAndLighting" name="soundAndLighting">
+                </div>
+              </div>
+            </div>
+
+            <div class="column is-half">
+              <div class="field">
+                <label class="label">Prostor (1-10)</label>
+                <div class="control">
+                  <input class="input" type="number" min="1" max="10"
+                         [(ngModel)]="reviewData.venue" name="venue">
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="field">
+            <label class="label">Komentar</label>
+            <div class="control">
+      <textarea class="textarea" placeholder="Vaš komentar..."
+                [(ngModel)]="reviewData.comment" name="comment"></textarea>
+            </div>
+          </div>
+
+          <button class="button is-primary" type="submit" [disabled]="!reviewForm.form.valid">
+            Pošalji utisak
+          </button>
+        </form>
+      </div>
+
+      <div *ngIf="auth.isAdmin()" class="admin-controls card-footer mt-2">
+        <a [routerLink]="['/events', event.id, 'edit']" class="card-footer-item">Izmeni</a>
+        <a (click)="deleteEvent(event.id)" class="card-footer-item has-text-danger">Obriši</a>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noEvents>
+    <div class="notification is-light">
+      <p>Nema zakazanih događaja za ovu lokaciju.</p>
+    </div>
+  </ng-template>
+
+</div>

@@ -1,0 +1,46 @@
+<div class="container">
+  <h1 class="title">Zahtevi za Registraciju na Čekanju</h1>
+  <h2 class="subtitle">Odobrite ili odbijte nove korisnike</h2>
+
+  <div *ngIf="message" class="notification is-info is-light">
+    {{ message }}
+  </div>
+
+  <div *ngIf="isLoading" class="has-text-centered">
+    <p>Učitavanje zahteva...</p>
+  </div>
+
+  <div *ngIf="!isLoading">
+
+    <div *ngIf="requests.length > 0" class="columns is-multiline">
+      <div *ngFor="let req of requests" class="column is-half">
+
+        <div class="box">
+          <div class="content">
+            <p>
+              <strong>ID Zahteva:</strong> {{ req.id }} <br>
+              <strong>Email:</strong> {{ req.email }} <br>
+              <strong>Adresa:</strong> {{ req.address }} <br>
+              <strong>Datum zahteva:</strong> {{ req.createdAt | date:'dd.MM.yyyy' }}
+            </p>
+          </div>
+
+          <div class="field is-grouped">
+            <div class="control">
+              <button (click)="approve(req.id)" class="button is-success">Odobri</button>
+            </div>
+            <div class="control">
+              <button (click)="reject(req.id)" class="button is-danger">Odbij</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div *ngIf="requests.length === 0" class="notification is-success">
+      <p>Nema novih zahteva za registraciju.</p>
+    </div>
+
+  </div>
+</div>

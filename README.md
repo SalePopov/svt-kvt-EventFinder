@@ -1,11 +1,11 @@
-# AvioKS - Sistem za upravljanje događajima i lokacijama
+# Sistem za upravljanje događajima i lokacijama
 
 **Projektni zadatak:** SVT i KVT  
 **Student:** SR 27/2023
 
 ## O Projektu
 
-AvioKS je fullstack veb aplikacija za upravljanje događajima i lokacijama. Aplikacija omogućava korisnicima da kreiraju, pregledaju i upravljaju događajima, lakacijama, kao i ostavljaju recenzije. Administrators imaju pristup dodatnim funkcionalnostima za upravljanje sistemom i odobravanje zahteva za registraciju.
+Fullstack veb aplikacija za upravljanje događajima i lokacijama. Aplikacija omogućava korisnicima da kreiraju, pregledaju i upravljaju događajima, lakacijama, kao i ostavljaju recenzije. Administrators imaju pristup dodatnim funkcionalnostima za upravljanje sistemom i odobravanje zahteva za registraciju.
 
 ## Tehnologije
 
